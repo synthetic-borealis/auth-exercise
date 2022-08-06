@@ -1,0 +1,5 @@
+Icons:
+
+email input:
+React Icons -> Remix Icons
+RiUser3Fill(3)

@@ -20,7 +20,7 @@ server.post('/login', (req, res) => {
   const { email, password } = req.body;
 
   if (email === mockUser.email && password === mockUser.password) {
-    res.status(201).json({ message: 'OKAY?' });
+    res.status(200).json({ message: 'OKAY?' });
   } else {
     res.status(401).json({ message: 'You shall not pass!' });
   }
