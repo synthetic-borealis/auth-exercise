@@ -14,10 +14,14 @@ import {
   InputRightElement,
   Text,
   HStack,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
+import axios from 'axios';
 
 import { FaUserAlt, FaLock } from 'react-icons/fa';
+
+import { authHost, authPort } from '../utils/constants';
 
 interface ILoginScreenProps {
   onLoginSuccess: () => void;
@@ -27,6 +31,7 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
   const [showPassword, setShowPassword] = React.useState<boolean>(false);
   const [emailValue, setEmailValue] = React.useState<string>('');
   const [passwordValue, setPasswordValue] = React.useState<string>('');
+  const toast = useToast();
 
   const placeholderStyle: CSSObject = {
     color: 'gray.400',
@@ -49,6 +54,37 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
     setShowPassword(!showPassword);
   }
 
+  function handleLoginFailure(statusCode: number = 401) {
+    console.log('I am here!');
+    toast({
+      title: 'Login error',
+      description:
+        statusCode === 401
+          ? 'Wrong e-mail or password!'
+          : 'An unknown error has occured!',
+      status: 'error',
+      duration: 4500,
+      isClosable: true,
+    });
+  }
+
+  function handleLogin(evt: React.FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    const authUrl = `${authHost}:${authPort}`;
+
+    axios
+      .post(authUrl, {
+        email: emailValue,
+        password: passwordValue,
+      })
+      .then(() => {
+        onLoginSuccess();
+      })
+      .catch((err) => {
+        handleLoginFailure(err.response.status);
+      });
+  }
+
   return (
     <Center bg="gray.300" width="100%" height="100vh">
       <VStack width="40%">
@@ -61,7 +97,7 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
           boxShadow="md"
           borderRadius="sm"
         >
-          <form>
+          <form onSubmit={handleLogin}>
             <VStack gap="0.5rem">
               <FormControl isRequired>
                 <InputGroup>
@@ -129,10 +165,15 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
           </form>
         </Box>
         <HStack>
-          <Text fontSize="md">
-            New to us?{' '}
-          </Text>
-          <Button padding="0" height="1rem" size="md" _hover={fauxLinkHoverStyle} bg="transparent" color="teal.500">
+          <Text fontSize="md">New to us? </Text>
+          <Button
+            padding="0"
+            height="1rem"
+            size="md"
+            _hover={fauxLinkHoverStyle}
+            bg="transparent"
+            color="teal.500"
+          >
             Sign Up
           </Button>
         </HStack>

@@ -16,7 +16,7 @@ const mockUser = {
   password: 'Password',
 };
 
-server.post('/login', (req, res) => {
+server.post('/', (req, res) => {
   const { email, password } = req.body;
 
   if (email === mockUser.email && password === mockUser.password) {
