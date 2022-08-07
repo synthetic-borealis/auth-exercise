@@ -1,7 +1,0 @@
-Icons:
-
-email input:
-React Icons -> Remix Icons (Apache License)
-RiUser3Fill(3)
-
-or Font Awesome icons (CC-BY)
