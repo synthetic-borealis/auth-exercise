@@ -51,7 +51,6 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
   }
 
   function handleLoginFailure(statusCode: number = 401) {
-    console.log('I am here!');
     toast({
       title: 'Login error',
       description:
@@ -83,15 +82,15 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
 
   return (
     <Center bg="gray.300" width="100%" height="100vh">
-      <VStack width="40%">
+      <VStack>
         <Avatar size="lg" bg="teal.500" />
         <Heading color="teal.500">Welcome</Heading>
         <Box
           bg="white"
-          width="100%"
           padding="1rem"
           boxShadow="md"
           borderRadius="sm"
+          minWidth={{base: "90%", md: "580px"}}
         >
           <form onSubmit={handleLogin}>
             <VStack gap="0.5rem">
