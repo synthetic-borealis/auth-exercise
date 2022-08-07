@@ -15,6 +15,7 @@ import {
   Text,
   HStack,
   useToast,
+  Link,
 } from '@chakra-ui/react';
 import React from 'react';
 import axios from 'axios';
@@ -35,11 +36,6 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
 
   const placeholderStyle: CSSObject = {
     color: 'gray.400',
-  };
-
-  const fauxLinkHoverStyle: CSSObject = {
-    background: 'transparent',
-    color: 'teal.300',
   };
 
   function handleEmailChange(evt: React.ChangeEvent<HTMLInputElement>) {
@@ -138,17 +134,15 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Button
-                size="sm"
-                padding="0"
-                h="1rem"
-                bg="transparent"
+              <Link
+                href="#"
                 color="teal.500"
+                fontSize="sm"
                 alignSelf="flex-end"
-                _hover={fauxLinkHoverStyle}
+                lineHeight="1em"
               >
                 forgot password?
-              </Button>
+              </Link>
               <Button
                 type="submit"
                 width="100%"
@@ -165,17 +159,12 @@ const LoginScreen: React.FC<ILoginScreenProps> = ({ onLoginSuccess }) => {
           </form>
         </Box>
         <HStack>
-          <Text fontSize="md">New to us? </Text>
-          <Button
-            padding="0"
-            height="1rem"
-            size="md"
-            _hover={fauxLinkHoverStyle}
-            bg="transparent"
-            color="teal.500"
-          >
-            Sign Up
-          </Button>
+          <Text fontSize="md">
+            New to us?{' '}
+            <Link height="1em" color="teal.500" href="#">
+              Sign Up
+            </Link>
+          </Text>
         </HStack>
       </VStack>
     </Center>
